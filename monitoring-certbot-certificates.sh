@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Slack webhook
-webhook_url=your_slack_webhook
+webhook_url=
 
 # Getting certbot certificates
 certificates_list=($(certbot certificates | grep 'Certificate Path' | awk '{print $3}'))
