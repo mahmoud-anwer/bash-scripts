@@ -5,7 +5,7 @@
 # -x: to enable debugging mode.
 
 notify() {
-  webhook="https://hooks.slack.com/services/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"
+  webhook=""
   slack_channel="#monitor-certificates"
   
   color="$1"
