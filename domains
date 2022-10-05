@@ -1,4 +1,9 @@
-test1.com
-test2.com
-test3.com
-@
+#test1
+domain: test1.com
+domain: test2.com
+
+#test2
+domain: test3.com
+
+#test3
+domain: test4.com

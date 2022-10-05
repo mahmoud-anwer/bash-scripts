@@ -5,7 +5,7 @@
 # -x: to enable debugging mode.
 
 notify() {
-  webhook=""
+  webhook="https://hooks.slack.com/services/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"
   slack_channel="#monitor-certificates"
   
   color="$1"
@@ -19,11 +19,12 @@ notify() {
 }
 
 # Read domains from file into 'domains_list' array
-read -d '@' -a domains_list < domains
+# read -d '@' -a domains_list < domains
+domains_list=($(cat domains | grep 'domain' | awk '{print $2}'))
 
 for item in ${domains_list[@]};
 do
-    for days in 66; # start of inner loop
+    for days in {1..85}; # start of inner loop
     do
         not_after_date=$(: | openssl s_client -connect $item:443 -servername $item 2>/dev/null \
                               | openssl x509 -text \
@@ -39,7 +40,6 @@ do
         else
             expiration_date=$(date -d "$(echo $not_after_date | awk '{print $4,$5,$7}')" '+%s');
             after_some_days=$(($(date +%s) + (86400*$days)));
-
             # Send slack notification
             if [ $after_some_days -gt $expiration_date ]
             then
